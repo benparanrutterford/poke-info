@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const args = process.argv;
+const cli = require("../build/src/cli").cli;
+
+if (!cli) {
+  console.log("Please build the CLI with: npm run build");
+  process.exit(1);
+}
+
+cli(args)
