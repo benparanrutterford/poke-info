@@ -1,7 +1,8 @@
-import chalk from 'chalk';
-import Pokedex from 'pokedex-promise-v2';
+import chalk from "chalk";
+import Pokedex from "pokedex-promise-v2";
+import { argv, exit } from "process";
+
 const P = new Pokedex();
-import { argv, exit } from 'process';
 
 const fetchPokemonInfo = async (name: string) => {
   console.log(chalk.green(`Fetching information about ${name}...`));
