@@ -1,11 +1,11 @@
 #!/usr/bin/env node
+import { cli } from "../build/cli";
 
 const args = process.argv;
-const cli = require("../build/src/cli").cli;
 
 if (!cli) {
   console.log("Please build the CLI with: npm run build");
   process.exit(1);
 }
 
-cli(args)
+cli(args);
