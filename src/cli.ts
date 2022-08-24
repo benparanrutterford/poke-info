@@ -9,7 +9,7 @@ const fetchPokemonInfo = async (name: string) => {
   try {
     const pokemonSpecies = await P.getPokemonSpeciesByName(name);
     return pokemonSpecies;
-  } catch(error) { 
+  } catch (error) { 
       console.log(chalk.bgRedBright("ERROR - Pokemon not found") + chalk.blueBright("\nPlease check that the Pokemon name is in all lowercase."))
   }
 };
