@@ -6,8 +6,13 @@ const P = new Pokedex();
 
 const fetchPokemonInfo = async (name: string) => {
   console.log(chalk.green(`Fetching information about ${name}...`));
-  const pokemonSpecies = await P.getPokemonSpeciesByName(name);
-  return pokemonSpecies;
+  try {
+    const pokemonSpecies = await P.getPokemonSpeciesByName(name);
+    return pokemonSpecies;
+  }
+  catch(error) {
+    console.log(chalk.bgRedBright("ERROR - Pokemon not found") + chalk.blueBright("\nPlease check that the Pokemon name is in all lowercase."))
+  }
 };
 
 export const cli = async (args: string[]) => {
@@ -18,6 +23,9 @@ export const cli = async (args: string[]) => {
     exit(1);
   }
   const pokemonInfo = await fetchPokemonInfo(pokemonName);
+  if (!pokemonInfo) {
+    exit(1)
+  }
   console.log(pokemonInfo);
 };
 
