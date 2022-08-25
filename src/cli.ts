@@ -1,18 +1,23 @@
 import chalk from "chalk";
 import Pokedex from "pokedex-promise-v2";
 import { argv, exit } from "process";
+import * as weaknesses from "../data/weaknesses.json" assert { type: "json" };
 
 const P = new Pokedex();
 
 const fetchPokemonInfo = async (name: string) => {
   console.log(chalk.green(`Fetching information about ${name}...`));
   try {
-    const pokemonType = await P.getPokemonByName(name.toLowerCase()) as Pokedex.Pokemon;
-    return pokemonType;
+    const pokemon = await P.getPokemonByName(name.toLowerCase()) as Pokedex.Pokemon;
+    const pokemonTypes = pokemon.types.map((typeObject) => typeObject.type.name);
+    return pokemonTypes;
   } catch (error) { 
-      console.log(chalk.bgRedBright("ERROR - Pokemon not found"));
+    console.log(chalk.bgRedBright("ERROR - Pokemon not found"));
   }
 };
+
+const fetchPokemonWeakness = () => {
+  }
 
 export const cli = async (args: string[]) => {
   console.log(chalk.blue("Welcome to poke-info!"));
