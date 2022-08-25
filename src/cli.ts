@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import Pokedex, { PokemonType } from "pokedex-promise-v2";
+import Pokedex from "pokedex-promise-v2";
 import { argv, exit } from "process";
 
 const P = new Pokedex();
