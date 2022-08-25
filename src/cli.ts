@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import Pokedex from "pokedex-promise-v2";
+import Pokedex, { PokemonType } from "pokedex-promise-v2";
 import { argv, exit } from "process";
 
 const P = new Pokedex();
@@ -7,8 +7,8 @@ const P = new Pokedex();
 const fetchPokemonInfo = async (name: string) => {
   console.log(chalk.green(`Fetching information about ${name}...`));
   try {
-    const pokemonSpecies = await P.getPokemonByName(name.toLowerCase());
-    return pokemonSpecies;
+    const pokemonType = await P.getPokemonByName(name.toLowerCase()) as Pokedex.Pokemon;
+    return pokemonType;
   } catch (error) { 
       console.log(chalk.bgRedBright("ERROR - Pokemon not found"));
   }
