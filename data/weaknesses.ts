@@ -1,3 +1,4 @@
+export const weaknesses =
 {
   "normal": {
     "normal": 1,
@@ -322,4 +323,4 @@
     "dark": 0.5,
     "steel": 0.5
   }
-}
+};

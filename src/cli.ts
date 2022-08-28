@@ -1,7 +1,29 @@
 import chalk from "chalk";
 import Pokedex from "pokedex-promise-v2";
 import { argv, exit } from "process";
-import * as weaknesses from "../data/weaknesses.json" assert { type: "json" };
+import { weaknesses } from "../data/weaknesses.js";
+
+// TODO: - Change weaknesses to JSON and read using readFileSync.
+
+type pokemonType = 
+  "normal" |
+  "fire" |
+  "water" |
+  "electric" |
+  "grass" |
+  "ice" |
+  "fighting" |
+  "poison" |
+  "ground" |
+  "flying" |
+  "psychic" |
+  "bug" |
+  "rock" |
+  "ghost" |
+  "dragon" |
+  "dark" |
+  "steel"
+;
 
 const P = new Pokedex();
 
@@ -19,7 +41,15 @@ const getPokemonTypes = (pokemon: Pokedex.Pokemon) =>
   pokemon.types.map((typeObject) => typeObject.type.name);
   
 const getPokemonWeakness = (types: string[]) => {
-
+  const weaknessObjects = types.map((type) => weaknesses[type as pokemonType]);
+  
+  return weaknessObjects.reduce((previous, current) => {
+    const accumulatedWeakness: any = {};
+    Object.keys(previous).forEach((key) => {
+      accumulatedWeakness[key] = previous[key as pokemonType] * current[key as pokemonType];
+    });
+    return accumulatedWeakness;
+  });
 };
 
 export const cli = async (args: string[]) => {
@@ -35,10 +65,10 @@ export const cli = async (args: string[]) => {
   if (!pokemonInfo) exit(1);
   
   const pokemonTypes = getPokemonTypes(pokemonInfo);
-  console.log(`This Pokemon is of type ${pokemonTypes.join(" and ")}`);
+  console.log(chalk.blueBright(`This Pokemon is of type ${pokemonTypes.join(" and ")}`));
   
   const pokemonWeakness = getPokemonWeakness(pokemonTypes);
-  console.log(`This Pokemon's weaknesses are ${pokemonWeakness}`);
+  console.log(`This Pokemon's weaknesses are ${JSON.stringify(pokemonWeakness, null, 2)}`);
 };
 
 cli(argv);
